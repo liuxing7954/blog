@@ -3,11 +3,11 @@
   <title>帅哥季的博客</title>
   
   
-  <link href="/atom.xml" rel="self"/>
+  <link href="/blog/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://liuxing7954.github.io/blog/"/>
   <updated>2019-04-26T02:37:28.747Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://liuxing7954.github.io/blog/</id>
   
   <author>
     <name>liuxing7954</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Java线程基础</title>
-    <link href="http://yoursite.com/2019/04/26/Java%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/2019/04/26/Java线程基础/</id>
+    <link href="https://liuxing7954.github.io/blog/2019/04/26/Java%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
+    <id>https://liuxing7954.github.io/blog/2019/04/26/Java线程基础/</id>
     <published>2019-04-26T02:13:06.884Z</published>
     <updated>2019-04-26T02:37:28.747Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/04/26/hello-world/"/>
-    <id>http://yoursite.com/2019/04/26/hello-world/</id>
+    <link href="https://liuxing7954.github.io/blog/2019/04/26/hello-world/"/>
+    <id>https://liuxing7954.github.io/blog/2019/04/26/hello-world/</id>
     <published>2019-04-26T01:42:15.806Z</published>
     <updated>2019-04-26T01:42:15.806Z</updated>
     
