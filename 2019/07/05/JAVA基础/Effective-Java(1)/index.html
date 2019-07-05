@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Effective-Java(1) | 帅哥季的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java">
+    <meta name="description" content="这是我阅读Effective-Java这本书做的笔记记录.希望能加深印象以后写的代码逼格能高一点  创建或销毁对象 设计一个类时,优先考虑是否能使用静态工厂方法123public static Boolean valueOf(boolean b) &amp;#123;        return (b ? TRUE : FALSE);    &amp;#125;    这样可以在重复使用对象时,减少对象的生成,">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective-Java(1)">
+<meta property="og:url" content="https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/index.html">
+<meta property="og:site_name" content="帅哥季的博客">
+<meta property="og:description" content="这是我阅读Effective-Java这本书做的笔记记录.希望能加深印象以后写的代码逼格能高一点  创建或销毁对象 设计一个类时,优先考虑是否能使用静态工厂方法123public static Boolean valueOf(boolean b) &amp;#123;        return (b ? TRUE : FALSE);    &amp;#125;    这样可以在重复使用对象时,减少对象的生成,">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-07-05T08:32:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Effective-Java(1)">
+<meta name="twitter:description" content="这是我阅读Effective-Java这本书做的笔记记录.希望能加深印象以后写的代码逼格能高一点  创建或销毁对象 设计一个类时,优先考虑是否能使用静态工厂方法123public static Boolean valueOf(boolean b) &amp;#123;        return (b ? TRUE : FALSE);    &amp;#125;    这样可以在重复使用对象时,减少对象的生成,">
+    
+        <link rel="alternate" type="application/atom+xml" title="帅哥季的博客" href="/blog/atom.xml">
+    
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/blog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/blog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/blog/img/avatar.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">liuxing7954</h5>
+          <a href="mailto:467677527@qq.com" title="467677527@qq.com" class="mail">467677527@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/liuxing7954" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/findFriends"  >
+                <i class="icon icon-lg icon-link"></i>
+                寻找合租舍友
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Effective-Java(1)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Effective-Java(1)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-05T08:32:25.000Z" itemprop="datePublished" class="page-time">
+  2019-07-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建或销毁对象"><span class="post-toc-number">1.</span> <span class="post-toc-text">创建或销毁对象</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-JAVA基础/Effective-Java(1)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Effective-Java(1)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-05 16:32:25" datetime="2019-07-05T08:32:25.000Z"  itemprop="datePublished">2019-07-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>这是我阅读Effective-Java这本书做的笔记记录.希望能加深印象以后写的代码逼格能高一点</p>
+</blockquote>
+<h2 id="创建或销毁对象"><a href="#创建或销毁对象" class="headerlink" title="创建或销毁对象"></a>创建或销毁对象</h2><ul>
+<li>设计一个类时,优先考虑是否能使用静态工厂方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">valueOf</span><span class="params">(<span class="keyword">boolean</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (b ? TRUE : FALSE);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这样可以在重复使用对象时,减少对象的<code>生成</code>,也可以将构造方法转变成有<code>名称意义</code>的函数调用</p>
+</blockquote>
+<ul>
+<li>一个类的初始化参数过多时,考虑使用Build方式创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OuterClass</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    OuterClass(Builder builder)&#123;</span><br><span class="line">        <span class="comment">// 从builder对象里取属性赋值...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line">        Builder(`这里传必须的参数`)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其余可选参数用方法传入...</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> OuterClass <span class="title">build</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> OuterClass(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-05T08:32:25.000Z" itemprop="dateUpdated">2019-07-05 16:32:25</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://liuxing7954.github.io/blog">
+            <img src="/blog/img/avatar.jpeg" alt="liuxing7954">
+            liuxing7954
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Java/">Java</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/&title=《Effective-Java(1)》 — 帅哥季的博客&pic=https://liuxing7954.github.io/blog/img/avatar.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/&title=《Effective-Java(1)》 — 帅哥季的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Effective-Java(1)》 — 帅哥季的博客&url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/&via=https://liuxing7954.github.io/blog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/blog/2019/07/05/Java多线程/Java线程基础2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java线程基础2</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/blog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>liuxing7954 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/&title=《Effective-Java(1)》 — 帅哥季的博客&pic=https://liuxing7954.github.io/blog/img/avatar.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/&title=《Effective-Java(1)》 — 帅哥季的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Effective-Java(1)》 — 帅哥季的博客&url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/&via=https://liuxing7954.github.io/blog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://liuxing7954.github.io/blog/2019/07/05/JAVA基础/Effective-Java(1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aQXLbMBAEQP//087VqUTUzC7g0qF5cokihMaBWM/i6yu+vn9c+d1/P3/+zqvr1bPHLjw8PLzF1J+Hfv6BhJEg8/Gf54yHh4d3m5dPt12OfOrJ9pPPGQ8PD+9zeG3B3Zbgs60FDw8P75N5yTaQjz8bGQ8PD+8TeG2E+l1eSWmebCcXsxY8PDy8mJcXwZ/z95X+Hh4eHt66q55HtPnIbWGdbwb/eQoPDw/vAi9/4ebBQR5P7GPf6Jt4eHh4R3ltZNDGu8nhgCKQDYKJv+7i4eHhXeBtGvltGT0rkdsw99g5BTw8PLyYl5e/s0bXbFHyY1hRfw8PDw9vwcvL2XbqSUGcL2s7Ph4eHt5tXhvFbp7axAptqwwPDw/vBq99TbfV+myx8iNfUZMMDw8P7yivjVbzIjtZlGSJ84XGw8PD+03e7NhTXjq3RXnLflNM4+Hh4R3l5S38fNC81M6bau1mE4UReHh4eCPerGiOEo4yVsi3liLIwMPDw7vG23TeZ6Xz/iBCFF7g4eHhXeCd2iryjWHDHoa5eHh4eJd5s7b95pXdxrvDMBcPDw/vGq+dUHK3PXo1Cz4OlNR4eHh48d229dUGu20A0ZbLb0bAw8PDO8qbFab7xv8srn3+lTdHB/Dw8PAO8fKNYROV5uPMPn+z9Hh4eHjXeG2s0Ma47SGAdm5RDo2Hh4d3lJcfF2jL3PZYVYussxY8PDy8o7xN3JDHBElRXrz6n0fGw8PDO8qbTbQtrPPieLM0eHh4eL/Dm712Z1FFO628OdcuPR4eHt6e124GZ7eQfBHb0AQPDw/vNi8pdmfNsytFcB5b4OHh4X0AL29uzcro2SGGl8uEh4eH9wG8fbG7Kb7zZhseHh7ebV4SK+RRRTuVYrrl4uLh4eHd4LX/8CdF8+zlvol6N3EGHh4eXsz7Ay02+T7lbmncAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/blog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

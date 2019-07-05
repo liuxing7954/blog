@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Java线程基础 | 帅哥季的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,多线程">
+    <meta name="description" content="线程的基本状态 初始化(New) 调用线程的start方法进入阶段2。  可运行(Runnable) 获得cpu时间片进入阶段3。  运行中 逻辑阶段，时间片暂时用完或者调用yield主动让出cpu（非强制性）回到阶段2。等待用户输入，或者sleep 会进入阶段4，主动调用wait方法，会进入阶段5。  阻塞阶段(Blocked) 阻塞的原因解除会回到可运行阶段  等待队列(Waiting) 这是">
+<meta name="keywords" content="Java,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java线程基础">
+<meta property="og:url" content="https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/index.html">
+<meta property="og:site_name" content="帅哥季的博客">
+<meta property="og:description" content="线程的基本状态 初始化(New) 调用线程的start方法进入阶段2。  可运行(Runnable) 获得cpu时间片进入阶段3。  运行中 逻辑阶段，时间片暂时用完或者调用yield主动让出cpu（非强制性）回到阶段2。等待用户输入，或者sleep 会进入阶段4，主动调用wait方法，会进入阶段5。  阻塞阶段(Blocked) 阻塞的原因解除会回到可运行阶段  等待队列(Waiting) 这是">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-07-05T08:32:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java线程基础">
+<meta name="twitter:description" content="线程的基本状态 初始化(New) 调用线程的start方法进入阶段2。  可运行(Runnable) 获得cpu时间片进入阶段3。  运行中 逻辑阶段，时间片暂时用完或者调用yield主动让出cpu（非强制性）回到阶段2。等待用户输入，或者sleep 会进入阶段4，主动调用wait方法，会进入阶段5。  阻塞阶段(Blocked) 阻塞的原因解除会回到可运行阶段  等待队列(Waiting) 这是">
+    
+        <link rel="alternate" type="application/atom+xml" title="帅哥季的博客" href="/blog/atom.xml">
+    
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/blog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/blog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/blog/img/avatar.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">liuxing7954</h5>
+          <a href="mailto:467677527@qq.com" title="467677527@qq.com" class="mail">467677527@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/liuxing7954" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/findFriends"  >
+                <i class="icon icon-lg icon-link"></i>
+                寻找合租舍友
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Java线程基础</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Java线程基础</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-05T08:32:25.000Z" itemprop="datePublished" class="page-time">
+  2019-07-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程的基本状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程的基本状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程的主要方法使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">线程的主要方法使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Thread"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">Thread</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取线程的返回值方案"><span class="post-toc-number">3.</span> <span class="post-toc-text">获取线程的返回值方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#wait和sleep的区别"><span class="post-toc-number">4.</span> <span class="post-toc-text">wait和sleep的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#锁池和等待池"><span class="post-toc-number">5.</span> <span class="post-toc-text">锁池和等待池</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#notify和notifyall的区别"><span class="post-toc-number">6.</span> <span class="post-toc-text">notify和notifyall的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#stop和interrupt的区别"><span class="post-toc-number">7.</span> <span class="post-toc-text">stop和interrupt的区别</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Java多线程/Java线程基础"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Java线程基础</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-05 16:32:25" datetime="2019-07-05T08:32:25.000Z"  itemprop="datePublished">2019-07-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="线程的基本状态"><a href="#线程的基本状态" class="headerlink" title="线程的基本状态"></a>线程的基本状态</h2><ol>
+<li><p><em>初始化</em>(New)</p>
+<p><code>调用线程的start方法</code>进入<strong>阶段2</strong>。</p>
+</li>
+<li><p><em>可运行</em>(Runnable)</p>
+<p><code>获得cpu时间片</code>进入<strong>阶段3</strong>。</p>
+</li>
+<li><p><em>运行中</em></p>
+<p>逻辑阶段，<code>时间片暂时用完</code>或者<code>调用yield</code>主动让出cpu（非强制性）回到<strong>阶段2。</strong><code>等待用户输入</code>，或者<code>sleep</code> 会进入<strong>阶段4</strong>，<code>主动调用wait方法</code>，会进入<strong>阶段5</strong>。</p>
+</li>
+<li><p><em>阻塞阶段</em>(Blocked)</p>
+<p>阻塞的原因<code>解除</code>会回到可运行阶段</p>
+</li>
+<li><p><em>等待队列</em>(Waiting)</p>
+<p>这是一个<code>不争取锁</code>资源的队列，<code>直到wait超时</code>，或者被<code>notify</code>和<code>notifyall</code>方法唤醒，进入到<strong>阶段6</strong>。</p>
+</li>
+<li><p><em>锁池</em></p>
+<p><code>等待争取锁</code>，争取到锁就进入<strong>阶段2</strong>。</p>
+</li>
+</ol>
+<h2 id="线程的主要方法使用"><a href="#线程的主要方法使用" class="headerlink" title="线程的主要方法使用"></a>线程的主要方法使用</h2><h4 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h4><ul>
+<li><p>start</p>
+<p>实际调用的native方法start0.此方法会<code>真正的新起</code>一个线程去执行run方法</p>
+</li>
+<li><p>run</p>
+<p>仅仅是调用的runable对象的<code>run方法</code>，和线程一点关系都没有</p>
+</li>
+<li><p>yield</p>
+<p>告诉调度器，此线程可以<code>让出cpu时间</code>，但是是否会切换执行线程，要看调度器的执行，所以这是个<code>非强制的方法</code>。</p>
+</li>
+</ul>
+<h2 id="获取线程的返回值方案"><a href="#获取线程的返回值方案" class="headerlink" title="获取线程的返回值方案"></a>获取线程的返回值方案</h2><p>线程一般新建的方法是<code>new Thread（new Runnable（）{}）;</code></p>
+<p>这种集成自Runnable的线程实现<code>不支持返回值</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Join方法</p>
+<p>给继承自Runnable的实现类一个成员属性，然后run方法中给属性赋值，主线程中获取该值前调用线程的<code>join方法</code>去等待线程执行完毕</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.currentThread().sleep(<span class="number">5000</span>);</span><br><span class="line">            name = <span class="string">"jxy"</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    MyThread target = <span class="keyword">new</span> MyThread();</span><br><span class="line">    Thread thread = <span class="keyword">new</span> Thread(target);</span><br><span class="line">    thread.start();</span><br><span class="line">    thread.join();</span><br><span class="line">    String name = target.name;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Callable接口返回</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCallable</span> <span class="keyword">implements</span> <span class="title">Callable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String name = <span class="string">"jxy"</span>;</span><br><span class="line">        Thread.currentThread().sleep(<span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">    MyCallable myCallable = <span class="keyword">new</span> MyCallable();</span><br><span class="line">    FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> FutureTask&lt;String&gt;(myCallable);</span><br><span class="line">    <span class="keyword">new</span> Thread(futureTask).start();</span><br><span class="line">    String name = futureTask.get();</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="wait和sleep的区别"><a href="#wait和sleep的区别" class="headerlink" title="wait和sleep的区别"></a>wait和sleep的区别</h2><ul>
+<li><p>wait是Object的方法，sleep是Thread的方法</p>
+</li>
+<li><p>sleep方法让出cpu执行时间，<code>不释放锁</code>，wait<code>让出cpu时间和锁</code></p>
+</li>
+<li><p>wait让出锁的特性——所以只能在<code>synchronized代码块或者方法</code>中使用。</p>
+</li>
+</ul>
+<h2 id="锁池和等待池"><a href="#锁池和等待池" class="headerlink" title="锁池和等待池"></a>锁池和等待池</h2><p>线程中调用无参的<code>wait方法</code>，那就会进入<code>无限期等待中</code>(Waiting)也叫<code>等待池</code>（WaitSet）在这里的线程，释放了锁和让出cpu之后，<code>不会去争取cpu时间</code>,除非被notify和notifyall<code>唤醒</code>，重新进去锁池去争取锁。</p>
+<h2 id="notify和notifyall的区别"><a href="#notify和notifyall的区别" class="headerlink" title="notify和notifyall的区别"></a>notify和notifyall的区别</h2><p>这两个方法的区别在于notify<code>随机唤醒</code>一个等待池中的一个等待线程。notifyall<code>唤醒全部</code>等待线程</p>
+<h2 id="stop和interrupt的区别"><a href="#stop和interrupt的区别" class="headerlink" title="stop和interrupt的区别"></a>stop和interrupt的区别</h2><p>stop不安全已经废弃</p>
+<p>interrupt是一个中断的通知，具体的中断由线程本身来执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException </span>&#123;</span><br><span class="line">    Thread thread = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (!isInterrupted()) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"thread 1"</span>);</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    thread.start();</span><br><span class="line">    thread.interrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-05T08:32:25.000Z" itemprop="dateUpdated">2019-07-05 16:32:25</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://liuxing7954.github.io/blog">
+            <img src="/blog/img/avatar.jpeg" alt="liuxing7954">
+            liuxing7954
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/多线程/">多线程</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/&title=《Java线程基础》 — 帅哥季的博客&pic=https://liuxing7954.github.io/blog/img/avatar.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/&title=《Java线程基础》 — 帅哥季的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java线程基础》 — 帅哥季的博客&url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/&via=https://liuxing7954.github.io/blog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/blog/2019/07/05/Spring/Spring-IOC(1)-意义/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Spring-IOC(1)-意义</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/blog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>liuxing7954 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/&title=《Java线程基础》 — 帅哥季的博客&pic=https://liuxing7954.github.io/blog/img/avatar.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/&title=《Java线程基础》 — 帅哥季的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java线程基础》 — 帅哥季的博客&url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/&via=https://liuxing7954.github.io/blog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://liuxing7954.github.io/blog/2019/07/05/Java多线程/Java线程基础/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3aQW7DMAwEwPz/0y3Qa+JmSYpOC4xPQWrYGhUQlaUej/j6+rmeP/fuv/rr19P1/P1j48LDw8NrDf3qSgZx9eLkOfkUJGN4MRI8PDy8NV6yuPcGdHVnstzn03H5PR4eHt5HecmiPIHlE4qHh4f3X3g5IA8X5lQ8PDy8T/GSMCLfWOfBa6/MrGQteHh4eDFv0gD71Oeb+nt4eHh4RxflwxvfVvj7ZrR4eHh4C7yklTU/ClDd+FaPL7wpG3h4eHg38qoRQDV6qBaJZFQvnomHh4d3lJfcmoez1adVy0a5nODh4eF9iFdtd1UnqxdSRG/Ew8PDW+MlS3xvmc4HmrfcCs0wPDw8vFt4eXha3S5P7qmeE8DDw8Pb5uUb6Pz7PDjIm17VfwAeHh7eHu9U0JAPLokYqtP9pu7h4eHhLfB6j6gOJQ9zq+XhhQIPDw9vgVddvucFoxfdjsILPDw8vKO8vCWfv6YavDaDhmQMeHh4eAu83iN67bFJaXkTOvy+ocfDw8Nb4M0ZPV5vuS/D8PDw8NZ4eZuqejhgHtdOAmU8PDy8s7zJ4tuLWQvpcmsS8fDw8O7hJZvjU4cDqu+avB0PDw9vg5dvbas//qsTd6pJdplS4+Hh4R3iJT/1R5vaQTf/wLYbDw8P7xZeb49abflPDmwVSgUeHh7eAq/a1E9W3Ulbq1qcosnCw8PDO8rLt8K9o6Lz6KFaKpopCx4eHl6Ll1wbMUSveRY1xvDw8PAWeJMIYLL9zZ+TMPDw8PDu5/UeXT1KlccTvVIURRJ4eHh4R3l5g7/X+urFFnkdixpgeHh4eLfz8ibW5JBBflwg2rLj4eHh/QFedQOdJyLJWxLeqDDg4eHhxbwkPugdApgf6pq0zfDw8PA2eL2f+nnra9I2y48UPCYXHh4eXsr7Bqo6AyfUSQwdAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/blog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Spring-IOC(1)-意义 | 帅哥季的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,Spring,Spring-IOC">
+    <meta name="description" content="什么是IOCSpring Core 的核心部分  先行知识 – 依赖注入Dependency Inversion  使用情况一个上级依赖于下级的架构                                                                                              1556338180523              如果最下级">
+<meta name="keywords" content="Java,Spring,Spring-IOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-IOC(1)-意义">
+<meta property="og:url" content="https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/index.html">
+<meta property="og:site_name" content="帅哥季的博客">
+<meta property="og:description" content="什么是IOCSpring Core 的核心部分  先行知识 – 依赖注入Dependency Inversion  使用情况一个上级依赖于下级的架构                                                                                              1556338180523              如果最下级">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/05/ZdiRVx.png">
+<meta property="og:image" content="https://liuxing7954.github.io/blog/2019/07/05/Spring/img/1556338298535.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/05/ZdFSzQ.png">
+<meta property="og:image" content="https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/D:/System/Doc/CODE/blog/source/_posts/1556338534655.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/05/ZdFsFf.png">
+<meta property="og:updated_time" content="2019-07-05T08:32:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring-IOC(1)-意义">
+<meta name="twitter:description" content="什么是IOCSpring Core 的核心部分  先行知识 – 依赖注入Dependency Inversion  使用情况一个上级依赖于下级的架构                                                                                              1556338180523              如果最下级">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/07/05/ZdiRVx.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="帅哥季的博客" href="/blog/atom.xml">
+    
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/blog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/blog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/blog/img/avatar.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">liuxing7954</h5>
+          <a href="mailto:467677527@qq.com" title="467677527@qq.com" class="mail">467677527@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/liuxing7954" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/blog/findFriends"  >
+                <i class="icon icon-lg icon-link"></i>
+                寻找合租舍友
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Spring-IOC(1)-意义</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Spring-IOC(1)-意义</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-05T08:32:25.000Z" itemprop="datePublished" class="page-time">
+  2019-07-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是IOC"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是IOC</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用情况"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">使用情况</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Spring/Spring-IOC(1)-意义"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Spring-IOC(1)-意义</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-05 16:32:25" datetime="2019-07-05T08:32:25.000Z"  itemprop="datePublished">2019-07-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="什么是IOC"><a href="#什么是IOC" class="headerlink" title="什么是IOC"></a>什么是IOC</h2><p>Spring Core 的<code>核心部分</code></p>
+<blockquote>
+<p>先行知识 – 依赖注入<code>Dependency Inversion</code></p>
+</blockquote>
+<h4 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h4><p>一个<code>上级依赖于下级</code>的架构</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://s2.ax1x.com/2019/07/05/ZdiRVx.png" alt="1556338180523" title>
+                </div>
+                <div class="image-caption">1556338180523</div>
+            </figure>
+<p>如果最下级的Tire的成员变量size要改为<code>动态化</code>的，那架构图如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/blog/2019/07/05/Spring/Spring-IOC(1)-意义/../img/1556338298535.png" alt="1556338298535" title>
+                </div>
+                <div class="image-caption">1556338298535</div>
+            </figure>
+<p>问题不言而喻，所以优化后的架构应该是<code>下层依赖于上层</code>，即将下层的对象<code>注入</code>到上层中，将程序进行<code>解耦</code>。</p>
+<p>优化后的架构为</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://s2.ax1x.com/2019/07/05/ZdFSzQ.png" alt="1556338486389" title>
+                </div>
+                <div class="image-caption">1556338486389</div>
+            </figure>
+<p>此时再进行相同的需求改造时,只要改变Tire类的代码.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/blog/2019/07/05/Spring/Spring-IOC(1)-意义/D:/System\Doc\CODE\blog\source\_posts\1556338534655.png" alt="1556338534655" title>
+                </div>
+                <div class="image-caption">1556338534655</div>
+            </figure>
+<p>两者的差别很明显,<code>耦合度后者更低</code>,但是后者的初始化代码变的非常复杂.</p>
+<p>为了解决这个问题,IOC容器内部隐藏了这些步骤.即将Luggage的初始化简化成<code>前者情况</code>的样子.</p>
+<p>IOC容器内部初始化一个对象的过程为</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://s2.ax1x.com/2019/07/05/ZdFsFf.png" alt="1556338766562" title>
+                </div>
+                <div class="image-caption">1556338766562</div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-07-05T08:32:25.000Z" itemprop="dateUpdated">2019-07-05 16:32:25</time>
+</span><br>
+
+
+        
+    </div>
+    
+    <footer>
+        <a href="https://liuxing7954.github.io/blog">
+            <img src="/blog/img/avatar.jpeg" alt="liuxing7954">
+            liuxing7954
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Spring-IOC/">Spring-IOC</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/&title=《Spring-IOC(1)-意义》 — 帅哥季的博客&pic=https://liuxing7954.github.io/blog/img/avatar.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/&title=《Spring-IOC(1)-意义》 — 帅哥季的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring-IOC(1)-意义》 — 帅哥季的博客&url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/&via=https://liuxing7954.github.io/blog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/blog/2019/07/05/其他/寻合租舍友/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">求合租</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/blog/2019/07/05/Java多线程/Java线程基础/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java线程基础</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/blog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>liuxing7954 &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/&title=《Spring-IOC(1)-意义》 — 帅哥季的博客&pic=https://liuxing7954.github.io/blog/img/avatar.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/&title=《Spring-IOC(1)-意义》 — 帅哥季的博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Spring-IOC(1)-意义》 — 帅哥季的博客&url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/&via=https://liuxing7954.github.io/blog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3aQZLCMAwEQP7/afa6VbDJSLJYDu0TVYTE7UMsRn484vF8GddXXv/29zWvn5MrDw88PDy88dT/uvXkYb2luX769Zzx8PDwtnnXD8tf5fmbOdl4ks83Fjw8PLwv5lVf8de/yql4eHh438+bI6ukvKDHw8PD+ySvGqEmZXQSKMwX4ljWgoeHhxfz8hD2ez6v9Pfw8PDwxl31PKKtNrQm0W1htnh4eHgLvGo5W219nQpk83IZDw8Pb5uXHLFKmv298DdvlTVDXjw8PLwFXh5AVP/jT0LY/AhXddvAw8PDO8XLX745NS+75822m2vw8PDwFnhJsZuzq5FBvnDVp+Dh4eFt8KpxQ7IB5HFGNbw4lrXg4eHhHeJVTzGdimJ74W+hs4eHh4d3lFeNa5NAdhJV5MFEoUDHw8PDW+PlR6MmpXZ+t8nc8PDw8P6X14NNjhpM5vMGiYeHh7fGS8rrvIVWDR1OgaNp4eHh4R3ilf/kx8tUPSw1KcpvSmo8PDy8Q7z5BlB9TF4uV48U3DwdDw8Pb8x7xiNvWSXTrV7TDJ3x8PDw1ni9YKJaQPcWLt+63vwKDw8Pb4GXhxGTqc8XaLTB4OHh4R3lJSXsBLxRiBeWAw8PD2+BVw1noxJ23FqrbjCFLh8eHh7eIV4SjFZhx+r9QWiCh4eHt83rNfiTBZocosrbYDcbAx4eHt4C73Dbaby1TDYePDw8vD3esziSSUzuUN0Mbr7Fw8PDW+Dlo1cc58FBXmpXFwUPDw9vg5e8ynuHonoHBSZ3ezNDPDw8vDXegYNNl4uVX1Pdu0YNMDw8PLyP83rtsd6BqjwEwcPDw/s2XnJQoBfgJltCeTvBw8PDW+MlZe6klVXdEvJA5ObOeHh4eAu8yR/+Xp+tunnkUW9z4OHh4aW8H739K/AOL5ZqAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/blog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
