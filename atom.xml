@@ -101,6 +101,35 @@
   </entry>
   
   <entry>
+    <title>Spring-AOP使用说明</title>
+    <link href="https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-AOP%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
+    <id>https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-AOP使用说明/</id>
+    <published>2019-07-05T08:32:25.000Z</published>
+    <updated>2019-07-05T08:32:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h2 id="切入点正则规则"><a href="#切入点正则规则" class="headerlink" title="切入点正则规则"></a>切入点正则规则</h2><h2 id="JdkProxy和Cglib"><a href="#JdkProxy和Cglib" class="headerlink" title="JdkProxy和Cglib"></a>JdkProxy和Cglib</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;名词解释&quot;&gt;&lt;a href=&quot;#名词解释&quot; class=&quot;headerlink&quot; title=&quot;名词解释&quot;&gt;&lt;/a&gt;名词解释&lt;/h2&gt;&lt;h2 id=&quot;实现原理&quot;&gt;&lt;a href=&quot;#实现原理&quot; class=&quot;headerlink&quot; title=&quot;实现原理&quot;&gt;&lt;/a
+      
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://liuxing7954.github.io/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Java" scheme="https://liuxing7954.github.io/blog/tags/Java/"/>
+    
+      <category term="Spring" scheme="https://liuxing7954.github.io/blog/tags/Spring/"/>
+    
+      <category term="Spring-AOP" scheme="https://liuxing7954.github.io/blog/tags/Spring-AOP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring-IOC(1)-意义</title>
     <link href="https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-%E6%84%8F%E4%B9%89/"/>
     <id>https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-IOC(1)-意义/</id>
@@ -128,35 +157,6 @@
       <category term="Spring" scheme="https://liuxing7954.github.io/blog/tags/Spring/"/>
     
       <category term="Spring-IOC" scheme="https://liuxing7954.github.io/blog/tags/Spring-IOC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-AOP使用说明</title>
-    <link href="https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-AOP%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
-    <id>https://liuxing7954.github.io/blog/2019/07/05/Spring/Spring-AOP使用说明/</id>
-    <published>2019-07-05T08:32:25.000Z</published>
-    <updated>2019-07-05T08:32:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h2 id="切入点正则规则"><a href="#切入点正则规则" class="headerlink" title="切入点正则规则"></a>切入点正则规则</h2><h2 id="JdkProxy和Cglib"><a href="#JdkProxy和Cglib" class="headerlink" title="JdkProxy和Cglib"></a>JdkProxy和Cglib</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;名词解释&quot;&gt;&lt;a href=&quot;#名词解释&quot; class=&quot;headerlink&quot; title=&quot;名词解释&quot;&gt;&lt;/a&gt;名词解释&lt;/h2&gt;&lt;h2 id=&quot;实现原理&quot;&gt;&lt;a href=&quot;#实现原理&quot; class=&quot;headerlink&quot; title=&quot;实现原理&quot;&gt;&lt;/a
-      
-    
-    </summary>
-    
-      <category term="学习笔记" scheme="https://liuxing7954.github.io/blog/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="Java" scheme="https://liuxing7954.github.io/blog/tags/Java/"/>
-    
-      <category term="Spring" scheme="https://liuxing7954.github.io/blog/tags/Spring/"/>
-    
-      <category term="Spring-AOP" scheme="https://liuxing7954.github.io/blog/tags/Spring-AOP/"/>
     
   </entry>
   
