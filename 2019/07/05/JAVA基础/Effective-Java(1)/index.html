@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="帅哥季的博客">
 <meta property="og:description" content="这是我阅读Effective-Java这本书做的笔记记录.希望能加深印象以后写的代码逼格能高一点  创建或销毁对象 设计一个类时,优先考虑是否能使用静态工厂方法123public static Boolean valueOf(boolean b) &amp;#123;        return (b ? TRUE : FALSE);    &amp;#125;    这样可以在重复使用对象时,减少对象的生成,">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-07-05T08:32:25.000Z">
+<meta property="og:updated_time" content="2019-07-05T09:34:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective-Java(1)">
 <meta name="twitter:description" content="这是我阅读Effective-Java这本书做的笔记记录.希望能加深印象以后写的代码逼格能高一点  创建或销毁对象 设计一个类时,优先考虑是否能使用静态工厂方法123public static Boolean valueOf(boolean b) &amp;#123;        return (b ? TRUE : FALSE);    &amp;#125;    这样可以在重复使用对象时,减少对象的生成,">
@@ -145,7 +145,7 @@
         <h1 class="title">Effective-Java(1)</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-07-05T08:32:25.000Z" itemprop="datePublished" class="page-time">
+                <time datetime="2019-07-05T09:34:57.000Z" itemprop="datePublished" class="page-time">
   2019-07-05
 </time>
 
@@ -178,7 +178,7 @@
     <div class="post-card">
         <h1 class="post-card-title">Effective-Java(1)</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-07-05 16:32:25" datetime="2019-07-05T08:32:25.000Z"  itemprop="datePublished">2019-07-05</time>
+            <time class="post-time" title="2019-07-05 17:34:57" datetime="2019-07-05T09:34:57.000Z"  itemprop="datePublished">2019-07-05</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/学习笔记/">学习笔记</a></li></ul>
@@ -204,8 +204,35 @@
 <p>这样可以在重复使用对象时,减少对象的<code>生成</code>,也可以将构造方法转变成有<code>名称意义</code>的函数调用</p>
 </blockquote>
 <ul>
-<li>一个类的初始化参数过多时,考虑使用Build方式创建<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OuterClass</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    OuterClass(Builder builder)&#123;</span><br><span class="line">        <span class="comment">// 从builder对象里取属性赋值...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line">        Builder(`这里传必须的参数`)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其余可选参数用方法传入...</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> OuterClass <span class="title">build</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> OuterClass(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>一个类的初始化参数过多时,考虑使用Build方式创建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OuterClass</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    OuterClass(Builder builder)&#123;</span><br><span class="line">        <span class="comment">// 从builder对象里取属性赋值...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line">        Builder(`这里传必须的参数`)&#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 其余可选参数用方法传入...</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> OuterClass <span class="title">build</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> OuterClass(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单例模式的实现考虑用枚举</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> SomeClass&#123;</span><br><span class="line">    INSTANCE;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 可选设置构造方法</span></span><br><span class="line">    <span class="comment">// 定义属性...</span></span><br><span class="line">    <span class="comment">// 定义方法...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果想类不被实例化,添加一个私有的构造方法</p>
+<blockquote>
+<p>这个我觉得没什么鸟用,书中指的大概是工具类这样的类,这种类名字一看也就不会去实例化吧</p>
+</blockquote>
+</li>
+<li><p>如果<code>&#39;工具类&#39;</code>需要引用一些资源,而这些资源会变的,那就意味着这不应该是个静态工具类</p>
+<blockquote>
+<p>可以用构造器传入这个资源具体的对象,也叫做依赖注入</p>
+</blockquote>
+</li>
+<li>避免创建多余的对象<blockquote>
+<p>复杂我还没理解,简单的一个场景就是自动装箱与拆箱,尽量都声明为基本类型可以避免创建多余封装对象</p>
+</blockquote>
+</li>
+<li>消除过期引用<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (size == <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">       <span class="keyword">return</span> elements[--size];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+<blockquote>
+<p>这段代码隐藏了一个OOM的错误,因为pop行为只减小了size的值而,elements数组中依然保留着对象的引用<br>这会导致对象不被回收,长期可能会OOM,解决办法是size减小的时候,将不用的引用置空</p>
+<ul>
+<li>使用try-resources代替try-finnally<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// try-finnally</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;finnally&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// try-resources</span></span><br><span class="line"><span class="keyword">try</span>(`初始化`)&#123;</span><br><span class="line"></span><br><span class="line">&#125;<span class="keyword">catch</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;finnally&#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
 
         </div>
 
@@ -214,7 +241,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-07-05T08:32:25.000Z" itemprop="dateUpdated">2019-07-05 16:32:25</time>
+    Last updated: <time datetime="2019-07-05T09:34:57.000Z" itemprop="dateUpdated">2019-07-05 17:34:57</time>
 </span><br>
 
 
@@ -294,9 +321,9 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/blog/2019/07/05/Java多线程/Java线程基础2/" id="post-next" class="post-nav-link">
+      <a href="/blog/2019/07/05/Java多线程/Java线程基础/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Java线程基础2</h4>
+        <h4 class="title">Java线程基础</h4>
       </a>
     </div>
   
